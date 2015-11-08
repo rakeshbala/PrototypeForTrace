@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PrototypeForTrace</string>
+
+    <string name="hello_world">Changed</string>
+    <string name="action_settings">Settings</string>
+    <string name="Button_Title">Create Notification</string>
+    <string name="Create_Toast">Create toast</string>
+    <string name="create_sticky">Create Sticky</string>
+</resources>
