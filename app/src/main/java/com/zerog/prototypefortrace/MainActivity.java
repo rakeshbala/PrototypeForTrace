@@ -21,6 +21,8 @@ import java.util.Random;
 
 public class MainActivity extends Activity {
 
+
+    private int counter = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class MainActivity extends Activity {
                 NotificationCompat.Builder mBuilder =
                         (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext())
                                 .setSmallIcon(R.drawable.notification_icon)
-                                .setContentTitle("My notification")
+                                .setContentTitle("My notification " + counter)
                                 .setContentText("Testing notification");
                 Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
 
@@ -48,7 +50,8 @@ public class MainActivity extends Activity {
                         );
 
                 mBuilder.setContentIntent(resultPendingIntent);
-                int mNotificationId = 100;
+                int mNotificationId = 100 + counter;
+                counter++;
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification notif = mBuilder.build();
                 notif.flags |= Notification.FLAG_NO_CLEAR;
@@ -79,7 +82,7 @@ public class MainActivity extends Activity {
 
                 mBuilder.setContentIntent(resultPendingIntent);
 //              Reusing the same notification ID
-                int mNotificationId = 100;
+                int mNotificationId = 102;
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification notif = mBuilder.build();
                 notif.flags |= Notification.FLAG_NO_CLEAR;
@@ -98,7 +101,7 @@ public class MainActivity extends Activity {
                 NotificationCompat.Builder mBuilder =
                         (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext())
                                 .setSmallIcon(R.drawable.notification_icon)
-                                .setContentTitle("My notification")
+                                .setContentTitle("My notification updated")
                                 .setContentText("Testing notification " + mNotificationId);
 
 
@@ -128,7 +131,8 @@ public class MainActivity extends Activity {
                 String ns = getApplicationContext().NOTIFICATION_SERVICE;
                 NotificationManager nMgr = (NotificationManager)
                         getApplicationContext().getSystemService(ns);
-                nMgr.cancel(100);
+                counter--;
+                nMgr.cancel(100 + counter);
             }
         });
 
@@ -149,8 +153,7 @@ public class MainActivity extends Activity {
                 notification.contentView = contentView;
 
                 Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-                PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
-                notification.contentIntent = contentIntent;
+                notification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
 
                 notification.flags |= Notification.FLAG_NO_CLEAR; //Do not clear the notification
                 notification.defaults |= Notification.DEFAULT_LIGHTS; // LED
