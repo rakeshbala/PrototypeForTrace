@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -79,7 +80,7 @@ public class MainActivity extends Activity {
                 mBuilder.setContentIntent(resultPendingIntent);
 //              Reusing the same notification ID
                 int mNotificationId = 100;
-                NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification notif = mBuilder.build();
                 notif.flags |= Notification.FLAG_NO_CLEAR;
                 notificationManager.notify(mNotificationId, notif);
@@ -92,13 +93,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                int mNotificationId = (int) (Math.random() * 100)+100;
+                int mNotificationId = (int) (Math.random() * 100) + 100;
 
                 NotificationCompat.Builder mBuilder =
                         (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext())
                                 .setSmallIcon(R.drawable.notification_icon)
                                 .setContentTitle("My notification")
-                                .setContentText("Testing notification "+mNotificationId);
+                                .setContentText("Testing notification " + mNotificationId);
 
 
                 Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -113,7 +114,7 @@ public class MainActivity extends Activity {
                                 PendingIntent.FLAG_UPDATE_CURRENT
                         );
                 mBuilder.setContentIntent(resultPendingIntent);
-                NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification notif = mBuilder.build();
                 notificationManager.notify(mNotificationId, notif);
 
@@ -135,32 +136,40 @@ public class MainActivity extends Activity {
         customNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RemoteViews remoteViews = new RemoteViews(getPackageName(),
-                        R.layout.widget);
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                        this).setSmallIcon(R.drawable.app_icon).setContent(
-                        remoteViews);
-                // Creates an explicit intent for an Activity in your app
-                Intent resultIntent = new Intent(this, test.class);
-                // The stack builder object will contain an artificial back stack for
-                // the
-                // started Activity.
-                // This ensures that navigating backward from the Activity leads out of
-                // your application to the Home screen.
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-                // Adds the back stack for the Intent (but not the Intent itself)
-                stackBuilder.addParentStack(test.class);
-                // Adds the Intent that starts the Activity to the top of the stack
-                stackBuilder.addNextIntent(resultIntent);
-                PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                remoteViews.setOnClickPendingIntent(R.id.button1, resultPendingIntent);
-                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                // mId allows you to update the notification later on.
-                mNotificationManager.notify(100, mBuilder.build());
+                int icon = R.drawable.app_icon;
+                long when = System.currentTimeMillis();
+                Notification notification = new Notification(icon, "Custom Notification", when);
+
+                NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.widget);
+                contentView.setImageViewResource(R.id.image, R.drawable.app_icon);
+                contentView.setTextViewText(R.id.title, "Custom notification");
+                contentView.setTextViewText(R.id.text, "This is a custom layout");
+                notification.contentView = contentView;
+
+                Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+                PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
+                notification.contentIntent = contentIntent;
+
+                notification.flags |= Notification.FLAG_NO_CLEAR; //Do not clear the notification
+                notification.defaults |= Notification.DEFAULT_LIGHTS; // LED
+                notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
+                notification.defaults |= Notification.DEFAULT_SOUND; // Sound
+
+                mNotificationManager.notify(1, notification);
             }
         });
 
+        Button customCancel = (Button) this.findViewById(R.id.customCancel);
+        customCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ns = getApplicationContext().NOTIFICATION_SERVICE;
+                NotificationManager nMgr = (NotificationManager)
+                        getApplicationContext().getSystemService(ns);
+                nMgr.cancel(1);
+            }
+        });
     }
-
 }

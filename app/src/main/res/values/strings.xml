@@ -8,4 +8,5 @@
     <string name="Update_Notif">Update Notification</string>
     <string name="Cancel_Notif">Cancel Notification</string>
     <string name="custom_notif">Custom Notification</string>
+    <string name="customCancel">Custom Cancel</string>
 </resources>

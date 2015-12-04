@@ -54,4 +54,14 @@
         android:layout_toRightOf="@+id/TextView"
         android:layout_toEndOf="@+id/TextView" />
 
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:text="@string/customCancel"
+        android:id="@+id/customCancel"
+        android:layout_below="@+id/custom_notif"
+        android:layout_toRightOf="@+id/TextView"
+        android:layout_alignRight="@+id/custom_notif"
+        android:layout_alignEnd="@+id/custom_notif" />
+
 </RelativeLayout>
