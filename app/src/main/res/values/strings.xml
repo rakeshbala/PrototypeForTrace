@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">PrototypeForTrace</string>
-
     <string name="hello_world">Changed</string>
     <string name="action_settings">Settings</string>
-    <string name="Button_Title">Create Notification</string>
+    <string name="Button_Title">Simple Notification</string>
     <string name="Create_Toast">Create toast</string>
     <string name="create_sticky">Create Sticky</string>
+    <string name="Update_Notif">Update Notification</string>
+    <string name="Cancel_Notif">Cancel Notification</string>
+    <string name="custom_notif">Custom Notification</string>
 </resources>

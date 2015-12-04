@@ -16,19 +16,42 @@
         />
 
     <Button
-        android:id="@+id/ToastButton"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:text="@string/Create_Toast"
-        android:layout_below="@id/NotifButton"
-        />
-
-    <Button
         android:id="@+id/StickyNotifButton"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:text="@string/create_sticky"
-        android:layout_below="@id/ToastButton"
-        />
+        android:layout_below="@+id/NotifButton" />
+
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:text="@string/Update_Notif"
+        android:id="@+id/updateNotif"
+        android:layout_below="@+id/StickyNotifButton"
+        android:layout_toRightOf="@+id/TextView"
+        android:layout_alignRight="@+id/StickyNotifButton"
+        android:layout_alignEnd="@+id/StickyNotifButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Cancel_Notif"
+        android:id="@+id/Cancel_Notif"
+        android:layout_below="@+id/updateNotif"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/updateNotif"
+        android:layout_alignEnd="@+id/updateNotif" />
+
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:text="@string/custom_notif"
+        android:id="@+id/custom_notif"
+        android:layout_below="@+id/Cancel_Notif"
+        android:layout_alignRight="@+id/Cancel_Notif"
+        android:layout_alignEnd="@+id/Cancel_Notif"
+        android:layout_toRightOf="@+id/TextView"
+        android:layout_toEndOf="@+id/TextView" />
 
 </RelativeLayout>
